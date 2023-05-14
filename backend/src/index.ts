@@ -2,8 +2,13 @@ import * as functions from "firebase-functions";
 import * as express from "express";
 import {addLink, getAllLinks, deleteLink} from "./linksController";
 import {admin} from "./config/firebase";
+import * as cors from "cors";
 
 const app = express();
+
+app.use(cors({
+  origin: "*",
+}));
 
 // eslint-disable-next-line max-len
 app.get("/", (rec, res) => res.status(200).send("Hey There 22222"));
