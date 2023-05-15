@@ -38,6 +38,22 @@ function Links() {
 
   }
 
+  const handleDownload = async (id: string) => {
+    try {
+      const response: any = await axios.get(`${serverUrl}/download/${id}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${id}.mp4`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form_content} action="/">
@@ -51,7 +67,7 @@ function Links() {
             <div key={item.id} className={styles.link_item}>
               <a href={`${serverUrl}/link/${item.id}`} target="_blank" rel="noreferrer">{item.id}</a>
               <div className={styles.buttons_content}>
-                <button className={classNames(styles.button, styles.download_button)}>Download</button>
+                <button onClick={() => handleDownload(item.id)} className={classNames(styles.button, styles.download_button)}>Download</button>
                 <button onClick={() => handleDelete(item.id)} className={classNames(styles.button, styles.delete_button)}>Delete</button>
               </div>
             </div>

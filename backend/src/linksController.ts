@@ -1,6 +1,7 @@
 import {Response} from "express";
 import {db} from "./config/firebase";
 import * as admin from "firebase-admin";
+import * as ytdl from "ytdl-core";
 
 type LinkType = {
   url: string;
@@ -76,4 +77,16 @@ const deleteLink = async (req: Request, res: Response)=> {
   }
 };
 
-export {addLink, getAllLinks, getLink, deleteLink};
+
+const downloadVideo = async (req: Request, res: Response) => {
+  const {linkId} = req.params;
+  const link = await db.collection("links").doc(linkId).get();
+  const url = link.data()?.url;
+  res.header("Content-Disposition", "attachment; filename=\"video.mp4\"");
+  ytdl(url, {
+    format: "mp4",
+    quality: "highest",
+  }).pipe(res);
+};
+
+export {addLink, getAllLinks, getLink, deleteLink, downloadVideo};

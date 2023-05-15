@@ -18,7 +18,7 @@ export default function useFetch(url: string){
       async function(){
         try{
           setLoading(true)
-          handleSetData();
+          await handleSetData();
         }catch(err: any){
           setError(err)
         }finally{

@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import * as express from "express";
-import {addLink, getAllLinks, deleteLink, getLink} from "./linksController";
+// eslint-disable-next-line max-len
+import {addLink, getAllLinks, deleteLink, getLink, downloadVideo} from "./linksController";
 import {admin} from "./config/firebase";
 import * as cors from "cors";
 
@@ -16,6 +17,7 @@ app.post("/links", addLink);
 app.get("/allLinks", getAllLinks);
 app.get("/link/:linkId", getLink);
 app.delete("/delete/:linkId", deleteLink);
+app.get("/download/:linkId", downloadVideo);
 
 // eslint-disable-next-line max-len
 exports.removeExpiredLinks = functions.pubsub.schedule("every 1 minutes").onRun(async () => {
