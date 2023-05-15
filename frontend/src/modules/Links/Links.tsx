@@ -49,7 +49,7 @@ function Links() {
         {data && data.map(item => {
           return (
             <div key={item.id} className={styles.link_item}>
-              <a href="#">{item.id}</a>
+              <a href={`${serverUrl}/link/${item.id}`} target="_blank" rel="noreferrer">{item.id}</a>
               <div className={styles.buttons_content}>
                 <button className={classNames(styles.button, styles.download_button)}>Download</button>
                 <button onClick={() => handleDelete(item.id)} className={classNames(styles.button, styles.delete_button)}>Delete</button>

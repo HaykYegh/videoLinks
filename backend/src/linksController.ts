@@ -49,6 +49,17 @@ const getAllLinks = async (req: Request, res: Response)=> {
   }
 };
 
+const getLink = async (req: Request, res: Response)=> {
+  const {linkId} = req.params;
+  try {
+    const link = await db.collection("links").doc(linkId).get();
+
+    return res.status(200).json(link.data());
+  } catch (error) {
+    return res.status(500).json((error as Record<string, any>).message);
+  }
+};
+
 const deleteLink = async (req: Request, res: Response)=> {
   const {linkId} = req.params;
   try {
@@ -65,4 +76,4 @@ const deleteLink = async (req: Request, res: Response)=> {
   }
 };
 
-export {addLink, getAllLinks, deleteLink};
+export {addLink, getAllLinks, getLink, deleteLink};

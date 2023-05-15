@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as express from "express";
-import {addLink, getAllLinks, deleteLink} from "./linksController";
+import {addLink, getAllLinks, deleteLink, getLink} from "./linksController";
 import {admin} from "./config/firebase";
 import * as cors from "cors";
 
@@ -14,6 +14,7 @@ app.use(cors({
 app.get("/", (rec, res) => res.status(200).send("Hey There 22222"));
 app.post("/links", addLink);
 app.get("/allLinks", getAllLinks);
+app.get("/link/:linkId", getLink);
 app.delete("/delete/:linkId", deleteLink);
 
 // eslint-disable-next-line max-len
